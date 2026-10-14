@@ -1,0 +1,40 @@
+flowchart TD
+    A([Buka index.html]) --> B[Muat style.css]
+    B --> C[Muat storage.js<br/>database lokal di localStorage]
+    C --> D[Muat app.js<br/>jalankan boot]
+    D --> E{Database<br/>dan user tersedia?}
+    E -- Tidak --> E1[Tampil: Perlu masuk]
+    E -- Ya --> F{Akun Gmail valid?}
+    F -- Tidak --> F1[Tampil: Gmail diperlukan]
+    F -- Ya --> G{Profil akun<br/>sudah ada?}
+    G -- Belum --> H[Form Daftar akun<br/>buat password]
+    G -- Sudah --> I{Sesi sudah<br/>terbuka?}
+    I -- Ya --> K
+    I -- Belum --> J[Form Masuk<br/>verifikasi password]
+    H --> K[unlock: muat data state<br/>atau buat data awal]
+    J -- password benar --> K
+    J -- password salah --> J
+    K --> L[Pasang listener<br/>tim dan berbagi]
+    L --> M[Terapkan tampilan<br/>dan render]
+    M --> N[Cek pengingat<br/>tiap 15 detik]
+    M --> O{Pilih menu}
+    O --> O1[Ringkasan]
+    O --> O2[Tugas]
+    O --> O3[Jadwal konten]
+    O --> O4[Kalender]
+    O --> O5[Tugas bersama]
+    O --> O6[Dibagikan]
+    O --> O7[Pustaka]
+    O --> O8[Laporan]
+    O --> O9[Pengaturan]
+    O --> O10[Ekspor CSV]
+    O --> O11[Keluar]
+    O1 & O2 & O3 & O4 & O5 & O6 & O7 & O8 & O9 --> P[Aksi pengguna:<br/>tambah, edit, centang,<br/>hapus, bagikan, seret jadwal]
+    P --> Q[Ubah data S<br/>lalu save ke database]
+    Q --> M
+    N --> R{Tenggat dekat<br/>dan ada pengingat?}
+    R -- Ya --> S[Bunyi beep<br/>dan tampil alarm]
+    R -- Tidak --> N
+    O10 --> T[Unduh file CSV]
+    O11 --> U[Hapus sesi, tampil form Masuk]
+    U --> J
